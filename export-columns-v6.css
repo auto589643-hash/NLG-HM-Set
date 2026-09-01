@@ -27,10 +27,11 @@
 #exportBoard .ex-speaker b{font-size:22px}
 #exportBoard .ex-bring b{font-size:22px}
 #exportBoard .ex-product strong{color:#555a64}
-#exportBoard .ex-set{border-top:1px solid #eceef1;margin-top:auto;padding-top:6px;opacity:.72}
-#exportBoard .ex-settitle{font-size:6.4px;color:#a3a6ad;font-weight:900;letter-spacing:.08em;margin-bottom:2px}
-#exportBoard .ex-setline{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:5px;font-size:6.4px;line-height:1.15;padding:1px 0;color:#777b83}
+#exportBoard .ex-set{border-top:1px solid #e5e7eb;margin-top:auto;padding-top:8px;opacity:.92}
+#exportBoard .ex-settitle{font-size:9px;color:#858991;font-weight:950;letter-spacing:.09em;margin-bottom:5px}
+#exportBoard .ex-setline{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:7px;font-size:9.5px;line-height:1.28;padding:2px 0;color:#555a64}
 #exportBoard .ex-setline span{overflow-wrap:anywhere}
-#exportBoard .ex-setline span:last-child{text-align:right;font-weight:800}
+#exportBoard .ex-setline span:first-child{font-weight:650}
+#exportBoard .ex-setline span:last-child{text-align:right;font-weight:900;color:#30343b}
 #exportBoard .ex-special{padding:16px 11px;font-size:20px;font-weight:950;line-height:1.2;display:flex;align-items:flex-start;flex:1}
 .ex-exportnote{font-size:10px;color:#8a8d96;margin-top:8px;text-align:right}
