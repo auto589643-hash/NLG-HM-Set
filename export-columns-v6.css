@@ -28,6 +28,8 @@
 #exportBoard .ex-speaker b{font-size:22px}
 #exportBoard .ex-bring b{font-size:22px}
 #exportBoard .ex-product strong{color:#555a64}
+#exportBoard .ex-row.is-missing strong{color:#d92d20!important}
+#exportBoard .ex-row.is-missing b{color:#c2413b!important;font-size:16px!important;font-weight:850;letter-spacing:0;opacity:.9;padding-top:2px}
 #exportBoard .ex-set{border-top:1px solid #e5e7eb;margin-top:auto;padding-top:8px;opacity:.92}
 #exportBoard .ex-settitle{font-size:9px;color:#858991;font-weight:950;letter-spacing:.09em;margin-bottom:5px}
 #exportBoard .ex-setline{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:7px;font-size:9.5px;line-height:1.28;padding:2px 0;color:#555a64}
