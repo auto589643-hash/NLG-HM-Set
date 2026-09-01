@@ -40,18 +40,22 @@ function buildBoard(y,m,items,settings){
   const groups=ws.map((w,i)=>({w,i,items:items.filter(x=>weekIndex(x.event_date,ws)===i).sort((a,b)=>String(a.event_date).localeCompare(String(b.event_date)))})).filter(g=>g.items.length);
   const usedDays=new Set(items.map(x=>parse(x.event_date).getDay()));
   const activeDays=MONDAY_ORDER.filter(di=>usedDays.has(di));
-  const gridCols=`140px repeat(${Math.max(activeDays.length,1)},minmax(0,1fr))`;
-  const heads=activeDays.map(di=>{const d=DAY[di];return `<div class="ex-colhead" style="background:${d.soft};color:${d.main}">${d.th}</div>`}).join('');
+  const dayMeta=activeDays.map(di=>{
+    const dayItems=items.filter(x=>parse(x.event_date).getDay()===di);
+    return {di,specialOnly:dayItems.length>0&&dayItems.every(x=>x.kind==='special')};
+  });
+  const tracks=dayMeta.map(x=>x.specialOnly?'minmax(150px,.58fr)':'minmax(0,1fr)').join(' ');
+  const gridCols=`140px ${tracks||'minmax(0,1fr)'}`;
+  const heads=dayMeta.map(x=>{const d=DAY[x.di];return `<div class="ex-colhead${x.specialOnly?' is-special-col':''}" style="background:${d.soft};color:${d.main}">${d.th}</div>`}).join('');
   const rows=groups.map(g=>{
     const byDay={};
     g.items.forEach(x=>{const di=parse(x.event_date).getDay();(byDay[di]??=[]).push(x)});
-    const cells=activeDays.map(di=>{
-      const arr=byDay[di]||[];
-      if(!arr.length)return `<div class="ex-daycell is-empty"></div>`;
-      return `<div class="ex-daycell"><div class="ex-daystack" style="grid-template-rows:repeat(${arr.length},minmax(0,1fr))">${arr.map(x=>exCard(x,settings)).join('')}</div></div>`;
+    const cells=dayMeta.map(dm=>{
+      const arr=byDay[dm.di]||[];
+      if(!arr.length)return `<div class="ex-daycell${dm.specialOnly?' is-special-col':''} is-empty"></div>`;
+      return `<div class="ex-daycell${dm.specialOnly?' is-special-col':''}"><div class="ex-daystack" style="grid-template-rows:repeat(${arr.length},minmax(0,1fr))">${arr.map(x=>exCard(x,settings)).join('')}</div></div>`;
     }).join('');
-    const onlySpecial=g.items.every(x=>x.kind==='special')?' only-special':'';
-    return `<div class="ex-week${onlySpecial}" style="grid-template-columns:${gridCols}"><div class="ex-weeklabel"><b>Week ${g.i+1}</b><span>${rangeText(g.w)}</span></div>${cells}</div>`;
+    return `<div class="ex-week" style="grid-template-columns:${gridCols}"><div class="ex-weeklabel"><b>Week ${g.i+1}</b><span>${rangeText(g.w)}</span></div>${cells}</div>`;
   }).join('');
   board.innerHTML=`<div class="ex-head"><h1>${englishMonth(y,m)}</h1><p>Monthly HM Overview • เฉพาะวันที่มีตาราง</p></div>${activeDays.length?`<div class="ex-colheads" style="grid-template-columns:${gridCols}"><div class="ex-colspacer"></div>${heads}</div>${rows}`:'<div class="empty">No schedule</div>'}<div class="ex-exportnote">เรียง Column เริ่มจากวันจันทร์ • Week = ศุกร์–พฤหัส</div>`;
 }
