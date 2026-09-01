@@ -16,39 +16,43 @@ const DAY=[
   {th:'ศุกร์',main:'#4779d8',soft:'#eaf1ff'},
   {th:'เสาร์',main:'#8664d2',soft:'#f0ebfb'}
 ];
-const ORDER=[5,6,0,1,2,3,4]; // ศุกร์ → พฤหัส ตาม logic ของ Week
+const MONDAY_ORDER=[1,2,3,4,5,6,0];
 function anchorFor(d){const x=new Date(d);x.setDate(x.getDate()+((4-x.getDay()+7)%7));return x}
 function buildWeeks(y,m){const first=new Date(y,m,1),last=new Date(y,m+1,0);let a=anchorFor(first),out=[];for(;;){const s=new Date(a);s.setDate(a.getDate()-6);out.push({start:s,anchor:new Date(a)});if(a>=last)break;a.setDate(a.getDate()+7)}return out}
 function weekIndex(date,ws){const a=iso(anchorFor(parse(date)));return ws.findIndex(w=>iso(w.anchor)===a)}
 function rangeText(w){return `${w.start.toLocaleDateString('th-TH',{day:'numeric',month:'short'})} – ${w.anchor.toLocaleDateString('th-TH',{day:'numeric',month:'short'})}`}
 function englishMonth(y,m){return new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'})}
 async function api(action,payload={}){const code=localStorage.getItem('nlg_access_code')||'';const {data,error}=await sbx.rpc('nlg_schedule_api',{p_code:code,p_action:action,p_payload:payload});if(error)throw error;return data}
+function detailRow(type,label,value){return `<div class="ex-row ex-${type}"><strong>${label}</strong><b>${esc(value)}</b></div>`}
 function exCard(x,settings){
   const d=parse(x.event_date),dc=DAY[d.getDay()];
   const h=`<div class="ex-cardhead" style="background:${dc.soft}"><i class="marker" style="background:${dc.main}"></i><div><span style="color:${dc.main}">${dc.th}</span><br><b>${d.getDate()} ${d.toLocaleDateString('th-TH',{month:'short'})}</b></div></div>`;
-  if(x.kind==='special')return `<div class="ex-card">${h}<div class="ex-special" style="color:${dc.main}">${esc(x.title||'Special Event')}</div></div>`;
+  if(x.kind==='special')return `<div class="ex-card ex-special-card">${h}<div class="ex-special" style="color:${dc.main}">${esc(x.title||'Special Event')}</div></div>`;
   let r='';
-  if(x.speaker)r+=`<div class="ex-row"><strong>SPEAKER</strong><b>${esc(x.speaker)}</b></div>`;
-  if(x.product)r+=`<div class="ex-row"><strong>PRODUCT</strong><b>${esc(x.product)}</b></div>`;
-  if(x.kind==='hm_large'&&x.bring)r+=`<div class="ex-row"><strong>BRING</strong><b>${esc(x.bring)}</b></div>`;
+  if(x.product)r+=detailRow('product','PRODUCT',x.product);
+  if(x.speaker)r+=detailRow('speaker','SPEAKER',x.speaker);
+  if(x.kind==='hm_large'&&x.bring)r+=detailRow('bring','BRING',x.bring);
   const s=(settings||[]).map(z=>`<div class="ex-setline"><span>${esc(z.label)}</span><span>${esc(z.value)}</span></div>`).join('');
-  return `<div class="ex-card">${h}<div class="ex-body">${r}<div class="ex-set">${s}</div></div></div>`
+  return `<div class="ex-card">${h}<div class="ex-body"><div class="ex-keyrows">${r}</div><div class="ex-set"><div class="ex-settitle">DEFAULT SET</div>${s}</div></div></div>`
 }
 function buildBoard(y,m,items,settings){
   const board=$('#exportBoard'),ws=buildWeeks(y,m);
   const groups=ws.map((w,i)=>({w,i,items:items.filter(x=>weekIndex(x.event_date,ws)===i).sort((a,b)=>String(a.event_date).localeCompare(String(b.event_date)))})).filter(g=>g.items.length);
-  const heads=ORDER.map(di=>{const d=DAY[di];return `<div class="ex-colhead" style="background:${d.soft};color:${d.main}">${d.th}</div>`}).join('');
+  const usedDays=new Set(items.map(x=>parse(x.event_date).getDay()));
+  const activeDays=MONDAY_ORDER.filter(di=>usedDays.has(di));
+  const gridCols=`140px repeat(${Math.max(activeDays.length,1)},minmax(0,1fr))`;
+  const heads=activeDays.map(di=>{const d=DAY[di];return `<div class="ex-colhead" style="background:${d.soft};color:${d.main}">${d.th}</div>`}).join('');
   const rows=groups.map(g=>{
     const byDay={};
     g.items.forEach(x=>{const di=parse(x.event_date).getDay();(byDay[di]??=[]).push(x)});
-    const cells=ORDER.map(di=>{
+    const cells=activeDays.map(di=>{
       const arr=byDay[di]||[];
       if(!arr.length)return `<div class="ex-daycell is-empty"></div>`;
       return `<div class="ex-daycell"><div class="ex-daystack" style="grid-template-rows:repeat(${arr.length},minmax(0,1fr))">${arr.map(x=>exCard(x,settings)).join('')}</div></div>`;
     }).join('');
-    return `<div class="ex-week"><div class="ex-weeklabel"><b>Week ${g.i+1}</b><span>${rangeText(g.w)}</span></div>${cells}</div>`;
+    return `<div class="ex-week" style="grid-template-columns:${gridCols}"><div class="ex-weeklabel"><b>Week ${g.i+1}</b><span>${rangeText(g.w)}</span></div>${cells}</div>`;
   }).join('');
-  board.innerHTML=`<div class="ex-head"><h1>${englishMonth(y,m)}</h1><p>Monthly HM Overview • วันตรงตาม Column</p></div><div class="ex-colheads"><div class="ex-colspacer"></div>${heads}</div>${rows||'<div class="empty">No schedule</div>'}<div class="ex-exportnote">แสดงเฉพาะวันที่มีตาราง • Week = ศุกร์–พฤหัส</div>`;
+  board.innerHTML=`<div class="ex-head"><h1>${englishMonth(y,m)}</h1><p>Monthly HM Overview • เฉพาะวันที่มีตาราง</p></div>${activeDays.length?`<div class="ex-colheads" style="grid-template-columns:${gridCols}"><div class="ex-colspacer"></div>${heads}</div>${rows}`:'<div class="empty">No schedule</div>'}<div class="ex-exportnote">เรียง Column เริ่มจากวันจันทร์ • Week = ศุกร์–พฤหัส</div>`;
 }
 async function exportColumnsPNG(){
   if(typeof html2canvas!=='function')return;
@@ -59,7 +63,7 @@ async function exportColumnsPNG(){
     const data=await api('load_month',{month});
     const items=(data?.items||[]).map(x=>({...x,event_date:String(x.event_date).slice(0,10)}));
     buildBoard(y,mm-1,items,data?.settings||[]);
-    await new Promise(r=>setTimeout(r,90));
+    await new Promise(r=>setTimeout(r,100));
     const c=await html2canvas($('#exportBoard'),{backgroundColor:'#f8f8fa',scale:1.5,useCORS:true,logging:false,width:1800});
     const blob=await new Promise(r=>c.toBlob(r,'image/png',1));
     const name=`NLG-HM-${month}-column-overview.png`,file=new File([blob],name,{type:'image/png'});
