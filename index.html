@@ -3,84 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f7f8">
+<meta name="theme-color" content="#f6f7f9">
 <title>NLG HM Schedule</title>
-<style>
-:root{--bg:#f7f7f8;--card:#fff;--text:#171719;--muted:#77777f;--line:#e7e7eb;--shadow:0 8px 30px rgba(0,0,0,.055)}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",Tahoma,sans-serif;color:var(--text)}button,input,select,textarea{font:inherit}button{touch-action:manipulation}.app{max-width:1050px;margin:auto;padding:12px 12px calc(92px + env(safe-area-inset-bottom))}.top{position:sticky;top:0;z-index:40;padding:6px 0 11px;background:rgba(247,247,248,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.toolbar{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:10px;box-shadow:var(--shadow)}.toprow{display:flex;align-items:center;justify-content:space-between;gap:9px}.brand small{display:block;font-size:9px;letter-spacing:.12em;font-weight:900;color:#92929a}.brand strong{display:block;font-size:18px;margin-top:2px}.monthnav{display:flex;align-items:center;gap:5px}.monthnav button{width:39px;height:39px;border:1px solid var(--line);background:#fff;border-radius:12px;font-size:20px}.monthnav input{height:39px;max-width:142px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:0 8px;font-weight:800}.actions{display:flex;gap:7px;margin-top:9px;overflow:auto;scrollbar-width:none}.actions::-webkit-scrollbar{display:none}.btn{height:41px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:0 13px;font-weight:800;white-space:nowrap}.btn.primary{background:#171719;color:#fff;border-color:#171719}.head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:18px 2px 12px}.head h1{font-size:28px;line-height:1.05;margin:0}.head p{font-size:12px;color:var(--muted);margin:5px 0 0}.counter{font-size:11px;color:var(--muted);border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 10px;white-space:nowrap}.weeks{display:grid;gap:14px}.week{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}.weekhead{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.weekhead b{font-size:14px}.weekhead span{font-size:11px;color:var(--muted)}.days{display:grid;gap:10px;padding:10px}.daycard{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:#fff}.dayhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px 9px 12px}.dayid{display:flex;align-items:center;gap:9px;min-width:0}.dot{width:9px;height:38px;border-radius:99px;flex:none}.dayname{font-size:11px;font-weight:850;color:#55565d}.daydate{font-size:17px;font-weight:900;margin-top:1px}.dayhead button{border:0;background:rgba(255,255,255,.72);height:32px;border-radius:10px;padding:0 9px;font-size:11px;font-weight:850}.body{padding:10px}.event{border-radius:14px;padding:14px 13px;font-size:15px;font-weight:900}.hm{display:grid;gap:8px}.hmrow{display:grid;grid-template-columns:82px 1fr;gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid #f0f0f2}.hmrow:last-child{border-bottom:0}.hmrow label{font-size:10px;font-weight:900;color:#85858d;text-transform:uppercase;padding-top:2px}.hmrow div{font-size:13px;font-weight:750;word-break:break-word}.setbox{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}.settitle{font-size:9px;font-weight:900;letter-spacing:.08em;color:#92929a;margin-bottom:6px}.setline{display:grid;grid-template-columns:1fr auto;gap:10px;padding:5px 0;font-size:11px}.setline b{font-weight:750}.setline span{font-weight:850;text-align:right}.cardfoot{display:flex;justify-content:flex-end;gap:6px;padding:0 10px 10px}.iconbtn{height:31px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0 10px;font-size:11px;font-weight:800;color:#5c5d64}.empty{background:#fff;border:1px dashed #d3d3d8;border-radius:19px;padding:34px 18px;text-align:center}.empty h3{font-size:16px;margin:0}.empty p{font-size:12px;color:var(--muted);margin:5px 0 14px}.fab{position:fixed;z-index:60;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));height:55px;border:0;border-radius:17px;background:#171719;color:#fff;font-weight:900;padding:0 18px;box-shadow:0 14px 32px rgba(0,0,0,.22)}.modal{position:fixed;inset:0;z-index:100;background:rgba(13,13,16,.48);display:none;align-items:flex-end;justify-content:center}.modal.open{display:flex}.sheet{width:min(560px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:24px 24px 0 0;padding:9px 15px calc(18px + env(safe-area-inset-bottom))}.handle{width:40px;height:5px;background:#d8d8dd;border-radius:99px;margin:2px auto 13px}.sheet h2{font-size:20px;margin:0}.sub{font-size:11px;color:var(--muted);margin:4px 0 13px}.field{margin:11px 0}.field>label{display:block;font-size:11px;font-weight:850;margin:0 0 5px}.field input,.field select{width:100%;height:46px;border:1px solid #d9d9de;border-radius:13px;background:#fff;padding:0 11px;outline:none}.seg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}.seg button{min-height:45px;border:1px solid #d9d9de;background:#fff;border-radius:12px;padding:6px;font-size:11px;font-weight:850}.seg button.on{background:#171719;color:#fff;border-color:#171719}.optionlist{display:grid;gap:8px}.op{border:1px solid var(--line);border-radius:14px;padding:9px}.ophead{display:flex;align-items:center;justify-content:space-between;gap:10px}.ophead label{font-size:12px;font-weight:900}.switch{width:45px;height:27px;border:0;border-radius:99px;background:#d9d9de;padding:3px;transition:.2s}.switch:after{content:'';display:block;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 2px 6px #0002;transition:.2s}.switch.on{background:#171719}.switch.on:after{transform:translateX(18px)}.op input{margin-top:8px}.hidden{display:none!important}.preview{display:flex;gap:9px;align-items:center;border-radius:12px;padding:9px 10px;font-size:11px;margin-top:7px}.preview i{width:8px;height:34px;border-radius:99px}.sacts{display:grid;grid-template-columns:1fr 1.5fr;gap:8px;margin-top:15px}.sacts .btn{height:48px}.settingrow{border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}.settingrow input+input{margin-top:7px}.note{font-size:10px;color:var(--muted);line-height:1.5}.toast{position:fixed;z-index:180;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translate(-50%,14px);opacity:0;background:#171719;color:#fff;border-radius:99px;padding:9px 13px;font-size:11px;transition:.2s;white-space:nowrap}.toast.on{opacity:1;transform:translate(-50%,0)}body.exporting .noexport{display:none!important}body.exporting .week{box-shadow:none}.legend{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.legend span{font-size:9px;font-weight:800;border-radius:99px;padding:5px 7px}
-@media(min-width:720px){.app{padding:18px 18px 70px}.toolbar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}.actions{margin:0}.days{grid-template-columns:1fr 1fr}.fab{display:none}}
-@media(min-width:980px){.weeks{grid-template-columns:1fr 1fr}.days{grid-template-columns:1fr}}
-</style>
+<link rel="stylesheet" href="styles-v5.css?v=5">
 </head>
 <body>
+<div class="unlock" id="unlock"><div class="unlockcard">
+  <small>NLG • HM SET</small><h1>เชื่อมข้อมูล</h1>
+  <p>ใส่รหัสครั้งเดียวบนอุปกรณ์นี้ เพื่อเปิดตารางที่บันทึกไว้ใน Supabase</p>
+  <input id="accessInput" type="password" placeholder="รหัสเชื่อมข้อมูล" autocomplete="off">
+  <button id="unlockBtn">เชื่อมข้อมูล</button>
+</div></div>
+
 <div class="app">
-  <div class="top noexport"><div class="toolbar"><div class="toprow"><div class="brand"><small>NLG • HM SET</small><strong>Schedule</strong></div><div class="monthnav"><button id="prev">‹</button><input id="month" type="month"><button id="next">›</button></div></div><div class="actions"><button class="btn primary" id="addTop">＋ เพิ่มวัน</button><button class="btn" id="settingsBtn">ตั้งค่า Set</button><button class="btn export">สร้างภาพ</button></div></div></div>
-  <main id="capture"><div class="head"><div><h1 id="monthTitle"></h1><p>แสดงเฉพาะวันที่ที่มีตาราง • สีอิงตามวัน</p><div class="legend" id="legend"></div></div><div class="counter" id="counter"></div></div><div class="weeks" id="weeks"></div></main>
-</div>
-<button class="fab noexport" id="fab">＋ เพิ่มวัน</button>
-
-<div class="modal noexport" id="entryModal"><div class="sheet"><div class="handle"></div><h2 id="formTitle">เพิ่มตาราง</h2><div class="sub">เลือกวันที่และรูปแบบ ตารางจะไปอยู่ใน Week ให้อัตโนมัติ</div>
-  <div class="field"><label>วันที่</label><input id="date" type="date"><div class="preview" id="datePreview"></div></div>
-  <div class="field"><label>รูปแบบ</label><div class="seg"><button data-mode="large">HM ใหญ่</button><button data-mode="small">HM เล็ก</button><button data-mode="event">Special Event</button></div></div>
-  <div id="hmFields">
-    <div class="field"><label>รายการ HM</label><div class="optionlist">
-      <div class="op" data-op="speaker"><div class="ophead"><label>Speaker</label><button class="switch on" data-toggle="speaker"></button></div><input id="speaker" placeholder="เช่น Dr.Bas + Arm"></div>
-      <div class="op" data-op="product"><div class="ophead"><label>Product</label><button class="switch on" data-toggle="product"></button></div><input id="product" placeholder="เช่น ESP / Artistry / Bodykey"></div>
-      <div class="op" data-op="bring"><div class="ophead"><label>Bring</label><button class="switch on" data-toggle="bring"></button></div><input id="bring" placeholder="เช่น โชค (เครื่อง) + แนน (สาธิต)"></div>
-    </div></div>
+  <div class="top">
+    <div class="toolbar">
+      <div class="toolbar-main">
+        <div class="brand"><small>NLG • HM SET</small><b>Schedule</b></div>
+        <div class="monthnav"><button id="prev">‹</button><input id="month" type="month"><button id="next">›</button></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="addTop">＋ เพิ่มวัน</button>
+        <button class="btn" id="settingsBtn">ตั้งค่า Set</button>
+        <button class="btn" id="exportBtn">สร้างภาพแนวนอน</button>
+        <div class="status" id="status">กำลังเชื่อม...</div>
+      </div>
+    </div>
   </div>
-  <div id="eventFields" class="hidden"><div class="field"><label>ชื่อ Special Event</label><input id="eventTitle" placeholder="เช่น Awaken Club"></div></div>
-  <div class="sacts"><button class="btn" id="cancel">ยกเลิก</button><button class="btn primary" id="save">บันทึก</button></div>
+
+  <main>
+    <div class="hero"><div><h1 id="monthTitle"></h1><p>แสดงเฉพาะวันที่มีตาราง • จัด Week แบบศุกร์–พฤหัส</p></div></div>
+    <div class="legend" id="legend"></div>
+    <div class="weeks" id="weeks"></div>
+  </main>
+</div>
+<button class="fab" id="fab">＋ เพิ่มวัน</button>
+
+<div class="modal" id="itemModal"><div class="sheet">
+  <div class="handle"></div><h2 id="formTitle">เพิ่มวัน</h2><div class="sub">เลือกชนิดตาราง แล้วกรอกเฉพาะข้อมูลที่ใช้จริง</div>
+  <div class="field"><label>วันที่</label><input id="fDate" type="date"></div>
+  <div class="field"><label>รูปแบบ</label><div class="kindseg" id="kindSeg">
+    <button data-kind="hm_large">HM ใหญ่</button><button data-kind="hm_small">HM เล็ก</button><button data-kind="special">Special Event</button>
+  </div></div>
+  <div id="hmFields">
+    <div class="formbox" id="speakerBox"><div class="optrow"><input id="speakerOn" type="checkbox" checked><label for="speakerOn"><b>Speaker</b></label></div><input class="grow" id="fSpeaker" placeholder="เช่น แนน + สีน้ำ"></div>
+    <div class="formbox" id="productBox"><div class="optrow"><input id="productOn" type="checkbox" checked><label for="productOn"><b>Product</b></label></div><input class="grow" id="fProduct" placeholder="เช่น Nutriplant / Artistry"></div>
+    <div class="formbox" id="bringBox"><div class="optrow"><input id="bringOn" type="checkbox"><label for="bringOn"><b>Bring</b></label></div><input class="grow" id="fBring" placeholder="เช่น โชค (เครื่อง) + แนน (สาธิต)"></div>
+  </div>
+  <div id="specialFields" style="display:none">
+    <div class="field"><label>ชื่อ Event</label><input id="fTitle" placeholder="เช่น AwakeConnect #1"></div>
+  </div>
+  <div class="sacts"><button class="btn" id="cancelItem">ยกเลิก</button><button class="btn primary" id="saveItem">บันทึก</button></div>
 </div></div>
 
-<div class="modal noexport" id="settingsModal"><div class="sheet"><div class="handle"></div><h2>ตั้งค่า Set</h2><div class="sub">ค่าเหล่านี้จะแสดงอัตโนมัติใน HM ทุกวัน แก้ครั้งเดียวแล้วใช้ต่อได้ทุกเดือน</div>
-  <div id="settingRows"></div>
-  <div class="note">ชื่อหัวข้อและผู้รับผิดชอบสามารถแก้ได้ ระบบจะใช้ค่าปัจจุบันกับตาราง HM ที่มีอยู่ทั้งหมด</div>
-  <div class="sacts"><button class="btn" id="closeSettings">ยกเลิก</button><button class="btn primary" id="saveSettings">บันทึกค่า Default</button></div>
+<div class="modal" id="settingsModal"><div class="sheet">
+  <div class="handle"></div><h2>ตั้งค่า Set</h2><div class="sub">ค่าตรงนี้เป็น Default และใช้กับ HM ทุกวัน</div>
+  <div id="settingsRows"></div>
+  <div class="sacts"><button class="btn" id="cancelSettings">ยกเลิก</button><button class="btn primary" id="saveSettings">บันทึกค่า Default</button></div>
 </div></div>
+
+<div id="exportBoard"></div>
 <div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script>
-(()=>{
-const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),pad=n=>String(n).padStart(2,'0');
-const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-const parse=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
-const DAY={0:{name:'อาทิตย์',main:'#E85D60',soft:'#FDEBEC'},1:{name:'จันทร์',main:'#D6A900',soft:'#FFF7D2'},2:{name:'อังคาร',main:'#E67DA5',soft:'#FCE8F0'},3:{name:'พุธ',main:'#47A96B',soft:'#E8F7ED'},4:{name:'พฤหัส',main:'#E88732',soft:'#FFF0E1'},5:{name:'ศุกร์',main:'#4F7EDB',soft:'#EAF0FC'},6:{name:'เสาร์',main:'#8668C9',soft:'#F0ECFA'}};
-const DEFAULT_SET=[{label:'1. Battery Checker ไมค์+ลำโพง',person:'ข้าวโอ๊ต สุดหล่อ / สีน้ำ'},{label:'2. Speaker Sound Checker',person:'ข้าว'},{label:'3. TV Screen+Sound Checker',person:'All'}];
-const monthEl=$('#month'),weeksEl=$('#weeks'),entryModal=$('#entryModal'),settingsModal=$('#settingsModal');let state,ym='',editId=null,mode='large',enabled={speaker:true,product:true,bring:true};
-function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('on');setTimeout(()=>x.classList.remove('on'),1500)}
-function getSettings(){try{return JSON.parse(localStorage.getItem('nlg-hm-settings-v1'))||DEFAULT_SET}catch{return DEFAULT_SET}}
-function saveSettingsData(v){localStorage.setItem('nlg-hm-settings-v1',JSON.stringify(v))}
-function thursdayFor(d){const x=new Date(d);x.setDate(x.getDate()+(4-x.getDay()+7)%7);return x}
-function weekKey(date){return iso(thursdayFor(parse(date)))}
-function weekNo(date){const target=thursdayFor(parse(date)),first=thursdayFor(new Date(state.year,state.month,1));return Math.floor((target-first)/604800000)+1}
-function weekRange(date){const a=thursdayFor(parse(date)),s=new Date(a);s.setDate(a.getDate()-6);return {s,a}}
-function blank(y,m){return{year:y,month:m,items:[]}}
-function load(y,m){ym=`${y}-${pad(m+1)}`;monthEl.value=ym;try{state=JSON.parse(localStorage.getItem('nlg-hm-flex-v1:'+ym))||blank(y,m)}catch{state=blank(y,m)};render()}
-function persist(){localStorage.setItem('nlg-hm-flex-v1:'+ym,JSON.stringify(state));render()}
-function monthName(){return new Date(state.year,state.month,1).toLocaleDateString('th-TH',{month:'long',year:'numeric'})}
-function renderLegend(){$('#legend').innerHTML=Object.values(DAY).map(x=>`<span style="background:${x.soft};color:${x.main}">${x.name}</span>`).join('')}
-function render(){renderLegend();$('#monthTitle').textContent=monthName();$('#counter').textContent=`${state.items.length} วัน`;const grouped={};state.items.slice().sort((a,b)=>a.date.localeCompare(b.date)).forEach(x=>{const k=weekKey(x.date);(grouped[k]??=[]).push(x)});const keys=Object.keys(grouped).sort();weeksEl.innerHTML=keys.length?keys.map(k=>weekHTML(k,grouped[k])).join(''):`<div class="empty"><h3>ยังไม่มีตารางเดือนนี้</h3><p>กด “เพิ่มวัน” แล้วเลือกวันที่ที่ต้องการ ตารางจะแสดงเฉพาะวันที่ที่เพิ่ม</p><button class="btn primary noexport" data-emptyadd>＋ เพิ่มวันแรก</button></div>`}
-function weekHTML(k,items){const r=weekRange(items[0].date),n=weekNo(items[0].date);return `<section class="week"><div class="weekhead"><b>Week ${n}</b><span>${r.s.toLocaleDateString('th-TH',{day:'numeric',month:'short'})} — ${r.a.toLocaleDateString('th-TH',{day:'numeric',month:'short'})}</span></div><div class="days">${items.map(dayHTML).join('')}</div></section>`}
-function dayHTML(x){const d=parse(x.date),c=DAY[d.getDay()];return `<article class="daycard"><div class="dayhead" style="background:${c.soft}"><div class="dayid"><i class="dot" style="background:${c.main}"></i><div><div class="dayname" style="color:${c.main}">${c.name}</div><div class="daydate">${d.toLocaleDateString('th-TH',{day:'numeric',month:'long'})}</div></div></div><button class="noexport" data-adddate="${x.date}">＋ เพิ่ม/แก้</button></div><div class="body">${x.mode==='event'?eventHTML(x,c):hmHTML(x)}</div><div class="cardfoot noexport"><button class="iconbtn" data-edit="${x.id}">แก้ไข</button><button class="iconbtn" data-del="${x.id}">ลบ</button></div></article>`}
-function eventHTML(x,c){return `<div class="event" style="background:${c.soft};color:${c.main}">${esc(x.eventTitle||'Special Event')}</div>`}
-function hmHTML(x){const rows=[];if(x.speaker)rows.push(['Speaker',x.speaker]);if(x.product)rows.push(['Product',x.product]);if(x.mode==='large'&&x.bring)rows.push(['Bring',x.bring]);const set=getSettings();return `<div class="hm">${rows.map(r=>`<div class="hmrow"><label>${r[0]}</label><div>${esc(r[1])}</div></div>`).join('')}</div><div class="setbox"><div class="settitle">SET • DEFAULT</div>${set.map(s=>`<div class="setline"><b>${esc(s.label)}</b><span>${esc(s.person)}</span></div>`).join('')}</div>`}
-function refreshMode(){$$('.seg [data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));$('#hmFields').classList.toggle('hidden',mode==='event');$('#eventFields').classList.toggle('hidden',mode!=='event');const bring=$('[data-op="bring"]');bring.classList.toggle('hidden',mode!=='large');if(mode==='small')enabled.bring=false;if(mode==='large'&&editId===null&&$('#bring').value==='')enabled.bring=true;refreshSwitches()}
-function refreshSwitches(){['speaker','product','bring'].forEach(k=>{const b=$(`[data-toggle="${k}"]`);if(!b)return;b.classList.toggle('on',!!enabled[k]);const input=$('#'+k);input.disabled=!enabled[k];input.style.opacity=enabled[k]?1:.42})}
-function datePreview(){const v=$('#date').value;if(!v)return;const d=parse(v),c=DAY[d.getDay()],r=weekRange(v),n=weekNo(v);$('#datePreview').style.background=c.soft;$('#datePreview').innerHTML=`<i style="background:${c.main}"></i><div><b style="color:${c.main}">${c.name} • Week ${n}</b><br>${r.s.toLocaleDateString('th-TH',{day:'numeric',month:'short'})} — ${r.a.toLocaleDateString('th-TH',{day:'numeric',month:'short'})}</div>`}
-function openEntry(date,id=null){editId=id;const x=id?state.items.find(v=>v.id===id):null;$('#formTitle').textContent=id?'แก้ไขตาราง':'เพิ่มตาราง';$('#date').min=`${ym}-01`;$('#date').max=iso(new Date(state.year,state.month+1,0));$('#date').value=x?.date||date||`${ym}-01`;mode=x?.mode||'large';enabled={speaker:x?!!x.speaker:true,product:x?!!x.product:true,bring:x?!!x.bring:true};$('#speaker').value=x?.speaker||'';$('#product').value=x?.product||'';$('#bring').value=x?.bring||'';$('#eventTitle').value=x?.eventTitle||'';refreshMode();datePreview();entryModal.classList.add('open')}
-function closeEntry(){entryModal.classList.remove('open');editId=null}
-$$('.seg [data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;if(mode==='large')enabled.bring=true;refreshMode()});$$('[data-toggle]').forEach(b=>b.onclick=()=>{const k=b.dataset.toggle;enabled[k]=!enabled[k];refreshSwitches()});$('#date').onchange=datePreview;
-$('#save').onclick=()=>{const date=$('#date').value;if(!date)return toast('เลือกวันที่ก่อน');const d=parse(date);if(d.getFullYear()!==state.year||d.getMonth()!==state.month)return toast('เลือกวันที่ในเดือนนี้');let data={date,mode,speaker:'',product:'',bring:'',eventTitle:''};if(mode==='event'){const t=$('#eventTitle').value.trim();if(!t)return toast('ใส่ชื่อ Special Event');data.eventTitle=t}else{data.speaker=enabled.speaker?$('#speaker').value.trim():'';data.product=enabled.product?$('#product').value.trim():'';data.bring=mode==='large'&&enabled.bring?$('#bring').value.trim():'';if(!data.speaker&&!data.product&&!data.bring)return toast('เลือกและกรอกอย่างน้อย 1 รายการ')}
-const same=state.items.findIndex(v=>v.date===date&&v.id!==editId);if(same>=0&&!editId){if(!confirm('วันนี้มีตารางอยู่แล้ว ต้องการแทนที่ด้วยรายการใหม่นี้หรือไม่?'))return;state.items.splice(same,1)}if(editId){const i=state.items.findIndex(v=>v.id===editId);state.items[i]={...state.items[i],...data}}else state.items.push({id:'i'+Date.now()+Math.random().toString(16).slice(2),...data});persist();closeEntry();toast('บันทึกแล้ว')};$('#cancel').onclick=closeEntry;entryModal.onclick=e=>{if(e.target===entryModal)closeEntry()};
-weeksEl.onclick=e=>{if(e.target.closest('[data-emptyadd]'))return openEntry();const add=e.target.closest('[data-adddate]');if(add){const x=state.items.find(v=>v.date===add.dataset.adddate);return x?openEntry(null,x.id):openEntry(add.dataset.adddate)}const ed=e.target.closest('[data-edit]');if(ed)return openEntry(null,ed.dataset.edit);const del=e.target.closest('[data-del]');if(del){const x=state.items.find(v=>v.id===del.dataset.del);if(x&&confirm(`ลบตารางวันที่ ${parse(x.date).toLocaleDateString('th-TH',{day:'numeric',month:'long'})} ?`)){state.items=state.items.filter(v=>v.id!==x.id);persist()}}};
-function renderSettings(){const set=getSettings();$('#settingRows').innerHTML=set.map((s,i)=>`<div class="settingrow"><div class="field"><label>รายการ ${i+1}</label><input data-sl="${i}" value="${esc(s.label)}"></div><div class="field"><label>ผู้รับผิดชอบ / ค่า Default</label><input data-sp="${i}" value="${esc(s.person)}"></div></div>`).join('')}
-$('#settingsBtn').onclick=()=>{renderSettings();settingsModal.classList.add('open')};$('#closeSettings').onclick=()=>settingsModal.classList.remove('open');settingsModal.onclick=e=>{if(e.target===settingsModal)settingsModal.classList.remove('open')};$('#saveSettings').onclick=()=>{const out=[];for(let i=0;i<3;i++)out.push({label:$(`[data-sl="${i}"]`).value.trim(),person:$(`[data-sp="${i}"]`).value.trim()});saveSettingsData(out);settingsModal.classList.remove('open');render();toast('บันทึกค่า Set แล้ว')};
-function shift(n){const d=new Date(state.year,state.month+n,1);load(d.getFullYear(),d.getMonth())}$('#prev').onclick=()=>shift(-1);$('#next').onclick=()=>shift(1);monthEl.onchange=()=>{if(monthEl.value){const [y,m]=monthEl.value.split('-').map(Number);load(y,m-1)}};$('#addTop').onclick=$('#fab').onclick=()=>openEntry();
-async function exportPNG(){if(typeof html2canvas!=='function')return toast('ตัวสร้างภาพยังโหลดไม่เสร็จ');if(!state.items.length)return toast('ยังไม่มีตารางให้สร้างภาพ');toast('กำลังสร้างภาพ...');document.body.classList.add('exporting');await new Promise(r=>setTimeout(r,80));try{const canvas=await html2canvas($('#capture'),{backgroundColor:'#f7f7f8',scale:2,useCORS:true,logging:false}),blob=await new Promise(r=>canvas.toBlob(r,'image/png',1)),name=`NLG-HM-${ym}.png`,file=new File([blob],name,{type:'image/png'});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:name});return}catch(e){if(e.name==='AbortError')return}}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}finally{document.body.classList.remove('exporting')}}$$('.export').forEach(b=>b.onclick=exportPNG);
-const now=new Date();load(now.getFullYear(),now.getMonth());
-})();
-</script>
+<script src="app-v5.js?v=5"></script>
 </body>
 </html>
