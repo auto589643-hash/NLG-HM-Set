@@ -2,28 +2,32 @@
 #exportBoard .ex-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #202124;padding-bottom:13px;margin-bottom:12px}
 #exportBoard .ex-head h1{font-size:44px;line-height:1;margin:0}
 #exportBoard .ex-head p{margin:0;font-size:13px;color:#777b84}
-.ex-colheads{display:grid;grid-template-columns:140px repeat(7,minmax(0,1fr));gap:8px;margin-bottom:8px}
-.ex-colhead{height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.02em}
+.ex-colheads{display:grid;gap:8px;margin-bottom:8px}
+.ex-colhead{height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;letter-spacing:.02em}
 .ex-colspacer{height:40px}
-#exportBoard .ex-week{display:grid;grid-template-columns:140px repeat(7,minmax(0,1fr));gap:8px;margin:8px 0;align-items:stretch}
-#exportBoard .ex-weeklabel{min-height:188px;border-radius:14px;background:#17181b;color:#fff;padding:13px 12px;display:flex;flex-direction:column;justify-content:flex-start}
+#exportBoard .ex-week{display:grid;gap:8px;margin:8px 0;align-items:stretch}
+#exportBoard .ex-weeklabel{min-height:205px;border-radius:14px;background:#17181b;color:#fff;padding:13px 12px;display:flex;flex-direction:column;justify-content:flex-start}
 #exportBoard .ex-weeklabel b{display:block;font-size:22px;line-height:1}
 #exportBoard .ex-weeklabel span{display:block;font-size:10px;opacity:.78;margin-top:7px;line-height:1.45}
-.ex-daycell{min-width:0;min-height:188px;display:flex;align-items:stretch}
+.ex-daycell{min-width:0;min-height:205px;display:flex;align-items:stretch}
 .ex-daycell.is-empty{background:transparent}
 .ex-daystack{display:grid;gap:6px;width:100%;height:100%}
 #exportBoard .ex-card{border:1px solid #dfe2e7;border-radius:14px;background:#fff;overflow:hidden;min-width:0;width:100%;height:100%;display:flex;flex-direction:column}
-#exportBoard .ex-cardhead{display:flex;align-items:center;gap:8px;padding:8px 9px;min-height:48px}
-#exportBoard .ex-cardhead .marker{width:6px;height:31px;border-radius:99px;flex:none}
-#exportBoard .ex-cardhead b{font-size:15px;line-height:1.05}
+#exportBoard .ex-cardhead{display:flex;align-items:center;gap:8px;padding:9px 10px;min-height:52px}
+#exportBoard .ex-cardhead .marker{width:6px;height:33px;border-radius:99px;flex:none}
+#exportBoard .ex-cardhead b{font-size:16px;line-height:1.05}
 #exportBoard .ex-cardhead span{font-size:9px;font-weight:900;line-height:1.1}
-#exportBoard .ex-body{padding:7px 9px 8px;display:flex;flex-direction:column;flex:1}
-#exportBoard .ex-row{display:grid;grid-template-columns:56px 1fr;gap:5px;padding:2px 0;font-size:9px;line-height:1.25}
-#exportBoard .ex-row strong{font-size:7px;color:#8b8e96;letter-spacing:.04em;padding-top:1px}
-#exportBoard .ex-row b{font-size:9px;overflow-wrap:anywhere}
-#exportBoard .ex-set{border-top:1px solid #eceef1;margin-top:5px;padding-top:5px}
-#exportBoard .ex-setline{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:5px;font-size:7.5px;line-height:1.25;padding:1.5px 0}
+#exportBoard .ex-body{padding:8px 10px 9px;display:flex;flex-direction:column;flex:1}
+#exportBoard .ex-keyrows{display:grid;gap:0}
+#exportBoard .ex-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px;padding:6px 0;border-bottom:1px solid #eceef1;align-items:start;line-height:1.2}
+#exportBoard .ex-row:last-child{border-bottom:0}
+#exportBoard .ex-row strong{font-size:8.5px;color:#858991;letter-spacing:.055em;padding-top:3px;font-weight:900}
+#exportBoard .ex-row b{font-size:14px;font-weight:900;overflow-wrap:anywhere;color:#17181b}
+#exportBoard .ex-product b{font-size:15px}
+#exportBoard .ex-set{border-top:1px solid #eceef1;margin-top:7px;padding-top:6px}
+#exportBoard .ex-settitle{font-size:7px;color:#a0a3aa;font-weight:900;letter-spacing:.07em;margin-bottom:3px}
+#exportBoard .ex-setline{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:5px;font-size:7.2px;line-height:1.2;padding:1.2px 0;color:#5f636b}
 #exportBoard .ex-setline span{overflow-wrap:anywhere}
 #exportBoard .ex-setline span:last-child{text-align:right;font-weight:800}
-#exportBoard .ex-special{padding:12px 10px;font-size:14px;font-weight:900;line-height:1.25;display:flex;align-items:flex-start;flex:1}
+#exportBoard .ex-special{padding:14px 11px;font-size:18px;font-weight:900;line-height:1.25;display:flex;align-items:flex-start;flex:1}
 .ex-exportnote{font-size:10px;color:#8a8d96;margin-top:8px;text-align:right}
