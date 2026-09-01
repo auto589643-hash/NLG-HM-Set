@@ -6,27 +6,29 @@
 .ex-colhead{height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;letter-spacing:.02em}
 .ex-colspacer{height:40px}
 #exportBoard .ex-week{display:grid;gap:8px;margin:8px 0;align-items:stretch}
-#exportBoard .ex-weeklabel{min-height:205px;border-radius:14px;background:#17181b;color:#fff;padding:13px 12px;display:flex;flex-direction:column;justify-content:flex-start}
+#exportBoard .ex-weeklabel{min-height:235px;border-radius:14px;background:#17181b;color:#fff;padding:13px 12px;display:flex;flex-direction:column;justify-content:flex-start}
 #exportBoard .ex-weeklabel b{display:block;font-size:22px;line-height:1}
 #exportBoard .ex-weeklabel span{display:block;font-size:10px;opacity:.78;margin-top:7px;line-height:1.45}
-.ex-daycell{min-width:0;min-height:205px;display:flex;align-items:stretch}
+.ex-daycell{min-width:0;min-height:235px;display:flex;align-items:stretch}
 .ex-daycell.is-empty{background:transparent}
 .ex-daystack{display:grid;gap:6px;width:100%;height:100%}
 #exportBoard .ex-card{border:1px solid #dfe2e7;border-radius:14px;background:#fff;overflow:hidden;min-width:0;width:100%;height:100%;display:flex;flex-direction:column}
 #exportBoard .ex-cardhead{display:flex;align-items:center;gap:8px;padding:9px 10px;min-height:52px}
 #exportBoard .ex-cardhead .marker{width:6px;height:33px;border-radius:99px;flex:none}
-#exportBoard .ex-cardhead b{font-size:16px;line-height:1.05}
-#exportBoard .ex-cardhead span{font-size:9px;font-weight:900;line-height:1.1}
-#exportBoard .ex-body{padding:8px 10px 9px;display:flex;flex-direction:column;flex:1}
+#exportBoard .ex-cardhead b{font-size:17px;line-height:1.05}
+#exportBoard .ex-cardhead span{font-size:9.5px;font-weight:900;line-height:1.1}
+#exportBoard .ex-body{padding:9px 11px 10px;display:flex;flex-direction:column;flex:1}
 #exportBoard .ex-keyrows{display:grid;gap:0}
-#exportBoard .ex-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px;padding:6px 0;border-bottom:1px solid #eceef1;align-items:start;line-height:1.2}
+#exportBoard .ex-row{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;padding:9px 0;border-bottom:1px solid #e7e9ed;align-items:start;line-height:1.12}
 #exportBoard .ex-row:last-child{border-bottom:0}
-#exportBoard .ex-row strong{font-size:8.5px;color:#858991;letter-spacing:.055em;padding-top:3px;font-weight:900}
-#exportBoard .ex-row b{font-size:14px;font-weight:900;overflow-wrap:anywhere;color:#17181b}
-#exportBoard .ex-product b{font-size:15px}
-#exportBoard .ex-set{border-top:1px solid #eceef1;margin-top:7px;padding-top:6px}
-#exportBoard .ex-settitle{font-size:7px;color:#a0a3aa;font-weight:900;letter-spacing:.07em;margin-bottom:3px}
-#exportBoard .ex-setline{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:5px;font-size:7.2px;line-height:1.2;padding:1.2px 0;color:#5f636b}
+#exportBoard .ex-row strong{font-size:9.5px;color:#7f838c;letter-spacing:.06em;padding-top:4px;font-weight:950}
+#exportBoard .ex-row b{font-size:18px;font-weight:950;overflow-wrap:anywhere;color:#111216;letter-spacing:-.01em}
+#exportBoard .ex-product b{font-size:21px;line-height:1.08}
+#exportBoard .ex-speaker b{font-size:19px}
+#exportBoard .ex-bring b{font-size:19px}
+#exportBoard .ex-set{border-top:1px solid #eceef1;margin-top:8px;padding-top:6px;opacity:.82}
+#exportBoard .ex-settitle{font-size:6.8px;color:#a0a3aa;font-weight:900;letter-spacing:.08em;margin-bottom:3px}
+#exportBoard .ex-setline{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:5px;font-size:6.9px;line-height:1.18;padding:1px 0;color:#70747c}
 #exportBoard .ex-setline span{overflow-wrap:anywhere}
 #exportBoard .ex-setline span:last-child{text-align:right;font-weight:800}
 #exportBoard .ex-special{padding:14px 11px;font-size:18px;font-weight:900;line-height:1.25;display:flex;align-items:flex-start;flex:1}
