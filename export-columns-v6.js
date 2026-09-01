@@ -23,15 +23,19 @@ function weekIndex(date,ws){const a=iso(anchorFor(parse(date)));return ws.findIn
 function rangeText(w){return `${w.start.toLocaleDateString('th-TH',{day:'numeric',month:'short'})} – ${w.anchor.toLocaleDateString('th-TH',{day:'numeric',month:'short'})}`}
 function englishMonth(y,m){return new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'})}
 async function api(action,payload={}){const code=localStorage.getItem('nlg_access_code')||'';const {data,error}=await sbx.rpc('nlg_schedule_api',{p_code:code,p_action:action,p_payload:payload});if(error)throw error;return data}
-function detailRow(type,label,value){return `<div class="ex-row ex-${type}"><strong>${label}</strong><b>${esc(value)}</b></div>`}
+function detailRow(type,label,value){
+  const empty=!String(value??'').trim();
+  const text=empty?'ยังไม่มีคนลง':esc(value);
+  return `<div class="ex-row ex-${type}${empty?' is-missing':''}"><strong>${label}</strong><b>${text}</b></div>`
+}
 function exCard(x,settings){
   const d=parse(x.event_date),dc=DAY[d.getDay()];
   const h=`<div class="ex-cardhead" style="background:${dc.soft}"><i class="marker" style="background:${dc.main}"></i><div><span style="color:${dc.main}">${dc.th}</span><br><b>${d.getDate()} ${d.toLocaleDateString('th-TH',{month:'short'})}</b></div></div>`;
   if(x.kind==='special')return `<div class="ex-card ex-special-card">${h}<div class="ex-special" style="background:${dc.soft};color:${dc.main}">SPECIAL EVENT</div></div>`;
   let r='';
-  if(x.product)r+=detailRow('product','PRODUCT',x.product);
-  if(x.speaker)r+=detailRow('speaker','SPEAKER',x.speaker);
-  if(x.kind==='hm_large'&&x.bring)r+=detailRow('bring','BRING',x.bring);
+  r+=detailRow('product','PRODUCT',x.product||'');
+  r+=detailRow('speaker','SPEAKER',x.speaker||'');
+  if(x.kind==='hm_large')r+=detailRow('bring','BRING',x.bring||'');
   const s=(settings||[]).map(z=>`<div class="ex-setline"><span>${esc(z.label)}</span><span>${esc(z.value)}</span></div>`).join('');
   return `<div class="ex-card">${h}<div class="ex-body"><div class="ex-keyrows">${r}</div><div class="ex-set"><div class="ex-settitle">DEFAULT SET</div>${s}</div></div></div>`
 }
