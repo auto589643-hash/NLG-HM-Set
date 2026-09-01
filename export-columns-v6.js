@@ -6,7 +6,7 @@ const $=s=>document.querySelector(s);
 const pad=n=>String(n).padStart(2,'0');
 const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const parse=s=>{const [y,m,d]=String(s).slice(0,10).split('-').map(Number);return new Date(y,m-1,d)};
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
 const DAY=[
   {th:'อาทิตย์',main:'#f05b65',soft:'#fdebed'},
   {th:'จันทร์',main:'#d59b00',soft:'#fff5cf'},
@@ -27,7 +27,7 @@ function detailRow(type,label,value){return `<div class="ex-row ex-${type}"><str
 function exCard(x,settings){
   const d=parse(x.event_date),dc=DAY[d.getDay()];
   const h=`<div class="ex-cardhead" style="background:${dc.soft}"><i class="marker" style="background:${dc.main}"></i><div><span style="color:${dc.main}">${dc.th}</span><br><b>${d.getDate()} ${d.toLocaleDateString('th-TH',{month:'short'})}</b></div></div>`;
-  if(x.kind==='special')return `<div class="ex-card ex-special-card">${h}<div class="ex-special" style="color:${dc.main}">${esc(x.title||'Special Event')}</div></div>`;
+  if(x.kind==='special')return `<div class="ex-card ex-special-card">${h}<div class="ex-special" style="background:${dc.soft};color:${dc.main}">SPECIAL EVENT</div></div>`;
   let r='';
   if(x.product)r+=detailRow('product','PRODUCT',x.product);
   if(x.speaker)r+=detailRow('speaker','SPEAKER',x.speaker);
@@ -50,7 +50,8 @@ function buildBoard(y,m,items,settings){
       if(!arr.length)return `<div class="ex-daycell is-empty"></div>`;
       return `<div class="ex-daycell"><div class="ex-daystack" style="grid-template-rows:repeat(${arr.length},minmax(0,1fr))">${arr.map(x=>exCard(x,settings)).join('')}</div></div>`;
     }).join('');
-    return `<div class="ex-week" style="grid-template-columns:${gridCols}"><div class="ex-weeklabel"><b>Week ${g.i+1}</b><span>${rangeText(g.w)}</span></div>${cells}</div>`;
+    const onlySpecial=g.items.every(x=>x.kind==='special')?' only-special':'';
+    return `<div class="ex-week${onlySpecial}" style="grid-template-columns:${gridCols}"><div class="ex-weeklabel"><b>Week ${g.i+1}</b><span>${rangeText(g.w)}</span></div>${cells}</div>`;
   }).join('');
   board.innerHTML=`<div class="ex-head"><h1>${englishMonth(y,m)}</h1><p>Monthly HM Overview • เฉพาะวันที่มีตาราง</p></div>${activeDays.length?`<div class="ex-colheads" style="grid-template-columns:${gridCols}"><div class="ex-colspacer"></div>${heads}</div>${rows}`:'<div class="empty">No schedule</div>'}<div class="ex-exportnote">เรียง Column เริ่มจากวันจันทร์ • Week = ศุกร์–พฤหัส</div>`;
 }
