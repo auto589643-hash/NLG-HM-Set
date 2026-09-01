@@ -18,6 +18,8 @@ const DAY=[
 ];
 const ORDER=[1,2,3,4,5,6,0];
 let timer=null,lastKey='';
+let zoomMode=localStorage.getItem('nlg_overview_zoom_mode')||'fit';
+let manualZoom=Math.max(.30,Math.min(1,Number(localStorage.getItem('nlg_overview_zoom'))||.75));
 function anchorFor(d){const x=new Date(d);x.setDate(x.getDate()+((4-x.getDay()+7)%7));return x}
 function buildWeeks(y,m){const first=new Date(y,m,1),last=new Date(y,m+1,0);let a=anchorFor(first),out=[];for(;;){const s=new Date(a);s.setDate(a.getDate()-6);out.push({start:s,anchor:new Date(a)});if(a>=last)break;a.setDate(a.getDate()+7)}return out}
 function weekIndex(date,ws){const a=iso(anchorFor(parse(date)));return ws.findIndex(w=>iso(w.anchor)===a)}
@@ -35,6 +37,28 @@ function card(x,settings){
   return `<article class="mo-card" data-overview-edit="${x.id}" tabindex="0" role="button" aria-label="แก้ไข ${dc.th} ${d.getDate()}"><span class="mo-edit-hint">แตะเพื่อแก้ไข</span>${h}<div class="mo-body"><div class="mo-keyrows">${rows}</div><div class="mo-set"><div class="mo-settitle">DEFAULT SET</div>${sets}</div></div></article>`
 }
 function ensureMount(){let el=$('#mainOverview');if(!el){el=document.createElement('section');el.id='mainOverview';const weeks=$('#weeks');weeks?.parentNode?.insertBefore(el,weeks)}return el}
+function zoomControls(){return `<div class="mo-zoom" aria-label="ปรับขนาดมุมมอง"><button type="button" data-mo-zoom="out" aria-label="ย่อ">−</button><span id="moZoomValue">100%</span><button type="button" data-mo-zoom="in" aria-label="ขยาย">＋</button><button type="button" class="fit" data-mo-fit>พอดีจอ</button></div>`}
+function applyZoom(){
+  const scroll=$('.main-overview-scroll'),board=$('.main-overview-board'),label=$('#moZoomValue');if(!scroll||!board)return;
+  board.style.zoom='1';
+  let z=manualZoom;
+  if(zoomMode==='fit'){
+    const natural=Math.max(board.scrollWidth,board.offsetWidth,1);
+    z=Math.min(1,Math.max(.30,(scroll.clientWidth-2)/natural));
+  }
+  board.style.zoom=String(z);
+  scroll.classList.toggle('is-fit',zoomMode==='fit');
+  if(label)label.textContent=`${zoomMode==='fit'?'Fit ':''}${Math.round(z*100)}%`;
+  const fit=$('[data-mo-fit]');if(fit)fit.classList.toggle('on',zoomMode==='fit');
+}
+function setManualZoom(delta){
+  const board=$('.main-overview-board');let current=manualZoom;
+  if(zoomMode==='fit'&&board){const v=parseFloat(board.style.zoom);if(Number.isFinite(v))current=v}
+  manualZoom=Math.max(.30,Math.min(1,Math.round((current+delta)*20)/20));
+  zoomMode='manual';
+  localStorage.setItem('nlg_overview_zoom_mode','manual');localStorage.setItem('nlg_overview_zoom',String(manualZoom));applyZoom();
+}
+function fitPage(){zoomMode='fit';localStorage.setItem('nlg_overview_zoom_mode','fit');applyZoom()}
 async function renderOverview(force=false){
   const month=$('#month')?.value;if(!month)return;
   const code=localStorage.getItem('nlg_access_code')||'';if(!code)return;
@@ -56,12 +80,14 @@ async function renderOverview(force=false){
       return `<div class="mo-week" style="grid-template-columns:${grid}"><div class="mo-weeklabel"><b>Week ${g.i+1}</b><span>${rangeText(g.w)}</span></div>${cells}</div>`
     }).join('');
     const mount=ensureMount();
-    mount.innerHTML=`<div class="main-overview-scroll"><div class="main-overview-board"><div class="mo-head"><h1>${englishMonth(y,mm-1)}</h1><p>Monthly HM Overview • แตะ Card เพื่อแก้ไข</p></div>${active.length?`<div class="mo-colheads" style="grid-template-columns:${grid}"><div class="mo-colspacer"></div>${heads}</div>${rows}`:'<div class="mo-empty">เดือนนี้ยังไม่มีตาราง</div>'}<div class="mo-note">Week = ศุกร์–พฤหัส • แสดงเฉพาะวันที่มีตาราง</div></div></div>`;
-    document.body.classList.add('overview-live');lastKey=key;
+    mount.innerHTML=`<div class="mo-viewbar"><div><b>ภาพรวมทั้งเดือน</b><span>ย่อเพื่อดูทั้งหน้า หรือขยายเพื่อแก้รายละเอียด</span></div>${zoomControls()}</div><div class="main-overview-scroll"><div class="main-overview-board"><div class="mo-head"><h1>${englishMonth(y,mm-1)}</h1><p>Monthly HM Overview • แตะ Card เพื่อแก้ไข</p></div>${active.length?`<div class="mo-colheads" style="grid-template-columns:${grid}"><div class="mo-colspacer"></div>${heads}</div>${rows}`:'<div class="mo-empty">เดือนนี้ยังไม่มีตาราง</div>'}<div class="mo-note">Week = ศุกร์–พฤหัส • แสดงเฉพาะวันที่มีตาราง</div></div></div>`;
+    document.body.classList.add('overview-live');lastKey=key;requestAnimationFrame(applyZoom);
   }catch(e){console.error('overview',e)}
 }
 function schedule(force=true){clearTimeout(timer);timer=setTimeout(()=>renderOverview(force),140)}
 document.addEventListener('click',e=>{
+  const z=e.target.closest?.('[data-mo-zoom]');if(z){setManualZoom(z.dataset.moZoom==='in'?.05:-.05);return}
+  const fit=e.target.closest?.('[data-mo-fit]');if(fit){fitPage();return}
   const c=e.target.closest?.('[data-overview-edit]');if(!c)return;
   const id=c.dataset.overviewEdit;
   const hidden=document.querySelector(`#weeks [data-edit="${CSS.escape(id)}"]`);
@@ -74,6 +100,7 @@ $('#next')?.addEventListener('click',()=>schedule(true));
 $('#saveItem')?.addEventListener('click',()=>setTimeout(()=>schedule(true),500));
 $('#saveSettings')?.addEventListener('click',()=>setTimeout(()=>schedule(true),500));
 $('#unlockBtn')?.addEventListener('click',()=>setTimeout(()=>schedule(true),500));
+window.addEventListener('resize',()=>{clearTimeout(window.__moResize);window.__moResize=setTimeout(applyZoom,120)});
 const status=$('#status');if(status)new MutationObserver(()=>{if(status.classList.contains('ok'))schedule(true)}).observe(status,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
 setTimeout(()=>renderOverview(true),350);
 })();
