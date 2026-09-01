@@ -33,5 +33,11 @@
 #exportBoard .ex-setline span{overflow-wrap:anywhere}
 #exportBoard .ex-setline span:first-child{font-weight:650}
 #exportBoard .ex-setline span:last-child{text-align:right;font-weight:900;color:#30343b}
-#exportBoard .ex-special{padding:16px 11px;font-size:20px;font-weight:950;line-height:1.2;display:flex;align-items:flex-start;flex:1}
+#exportBoard .ex-special-card{height:auto!important;min-height:0;align-self:start}
+#exportBoard .ex-special-card .ex-cardhead{min-height:48px;padding:8px 10px}
+#exportBoard .ex-special-card .ex-cardhead .marker{height:30px}
+#exportBoard .ex-special-card .ex-cardhead b{font-size:16px}
+#exportBoard .ex-special{margin:8px 10px 10px;padding:9px 10px;border-radius:9px;font-size:12px;font-weight:950;line-height:1;letter-spacing:.06em;text-align:center;display:block;flex:none}
+#exportBoard .ex-week.only-special .ex-weeklabel{min-height:112px}
+#exportBoard .ex-week.only-special .ex-daycell{min-height:112px}
 .ex-exportnote{font-size:10px;color:#8a8d96;margin-top:8px;text-align:right}
